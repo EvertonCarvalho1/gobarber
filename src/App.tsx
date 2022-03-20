@@ -1,8 +1,12 @@
 import React from 'react';
+import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
-  return(
-    <h1>Teste</h1>
+  return (
+    <>
+      <h1>Teste</h1>
+      <GlobalStyle />
+    </>
   )
 };
 
