@@ -33,11 +33,16 @@ export const Content = styled.div`
             border: 2px solid #232129;
             padding: 16px;
             width: 100%;
+            color: #F4EDE8;
 
-                & + input{
-                    margin-top: 8px;
-                }
+            & + input{
+                margin-top: 8px;
             }
+
+            &::placeholder{
+                color: #666360;
+            }
+        }
 
         button{
             background: #ff9000;
@@ -69,7 +74,19 @@ export const Content = styled.div`
     }
 
     > a {
-        
+        color: #ff9000;
+        display: block;
+        text-decoration: none;
+
+        display: flex;
+        align-items: center;
+        transition: 0.2s;
+        svg{
+            margin-right: 16px;
+        }
+        &:hover{
+            color: ${shade(0.2, '#ff9000')};
+        }
     }
 
 `;
