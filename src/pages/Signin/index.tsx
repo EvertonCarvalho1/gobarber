@@ -18,12 +18,12 @@ const Signin: React.FC = () => {
                     <button type="submit">Entrar</button>
 
                     <a href="forgot">Esqueci minha senha</a>
-
-                    <a href="">
-                        <FiLogIn/>
-                        Criar conta
-                    </a>
                 </form>
+
+                <a href="">
+                    <FiLogIn />
+                    Criar conta
+                </a>
 
             </Content>
             <Background />
