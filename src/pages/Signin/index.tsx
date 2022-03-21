@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 
 import { Container, Content, Background } from './styles';
 
-const Signin: React.FC = () => {
+const SignIn: React.FC = () => {
     return (
         <Container>
             <Content>
@@ -34,4 +34,4 @@ const Signin: React.FC = () => {
     )
 };
 
-export default Signin;
+export default SignIn;
