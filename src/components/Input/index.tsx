@@ -1,17 +1,35 @@
-import React, {InputHTMLAttributes, useEffect, useRef} from "react";
+import React, {InputHTMLAttributes, useEffect, useRef, useState, useCallback} from "react";
 import {IconBaseProps} from 'react-icons';
 import {useField} from '@unform/core';
 
 import { Container } from "./styles";
 
-interface inputProps extends InputHTMLAttributes<HTMLInputElement>{
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
     name: string;
     icon?: React.ComponentType<IconBaseProps>;
 }
 
-const Input: React.FC<inputProps> = ({name, icon: Icon, ...rest}) => {
-    const inputRef = useRef(null);
+const Input: React.FC<InputProps> = ({name, icon: Icon, ...rest}) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
     const {fieldName, defaultValue, error, registerField} = useField(name);
+
+    const handleInputBlur = useCallback(() => {
+        setIsFocused(false);
+
+        // if(inputRef.current?.value){
+        //     setIsFilled(true) 
+        // }else{
+        //     setIsFilled(false);
+        // }
+        // !! as duas exclamações transformam a sintaxe em valor booleano
+        setIsFilled(!!inputRef.current?.value);
+    }, []);
+
+    const handleInputFocus = useCallback(()=> {
+        setIsFocused(true)
+    }, []); 
 
     useEffect(()=> {
         registerField({
@@ -24,9 +42,17 @@ const Input: React.FC<inputProps> = ({name, icon: Icon, ...rest}) => {
 
 
     return(
-        <Container>
+        <Container 
+            isFocused={isFocused}
+            isFilled={isFilled}
+        >
             {Icon && <Icon size={20}/>}
-            <input defaultValue={defaultValue} ref={inputRef} {...rest} />
+            <input 
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+                defaultValue={defaultValue} 
+                ref={inputRef} {...rest} 
+            />
         </Container>
     )
 };
