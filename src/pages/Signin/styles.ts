@@ -27,10 +27,6 @@ export const Content = styled.div`
         margin-bottom: 24px;
         }
 
-       
-
-
-
         a{
             color: #F4EDE8;
             display: block;
