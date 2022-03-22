@@ -1,6 +1,7 @@
 import React from "react";
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
-import {Form} from '@unform/web';
+import { Form } from '@unform/web';
+import * as Yup from 'yup';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -11,7 +12,19 @@ import { Container, Content, Background } from './styles';
 
 const SignUp: React.FC = () => {
 
-    function handleSubmit(data: object): void{
+    async function handleSubmit(data: object): void {
+        try {
+            const schema = Yup.object().shape({
+                name: Yup.string().required('Nome obrigatório'),
+                email: Yup.string().required('Email obrigatório').email('Digite um email válido'),
+                password: Yup.string().required('Senha obrigatória').min(6, 'No mínimo 6 dígitos'),
+            });
+
+            await schema.validate(data);
+        } catch (err) {
+            console.log(err);
+        }
+
         console.log(data)
     }
 
@@ -29,16 +42,16 @@ const SignUp: React.FC = () => {
                         placeholder="Nome"
                     />
 
-                    <Input 
-                        icon={FiMail} 
-                        name='email' 
-                        placeholder="E-mail" 
+                    <Input
+                        icon={FiMail}
+                        name='email'
+                        placeholder="E-mail"
                     />
-                    <Input 
-                        icon={FiLock} 
-                        name='password' 
-                        type="password" 
-                        placeholder="Senha" 
+                    <Input
+                        icon={FiLock}
+                        name='password'
+                        type="password"
+                        placeholder="Senha"
                     />
 
                     <Button type="submit">Cadastrar</Button>
