@@ -14,8 +14,7 @@ const Tooltip: React.FC<TooltipProps> = ({title, children, className}) => {
             <span>{title}</span>
         </Container>
     )
-
-}
+};
 
 export default Tooltip; 
 
