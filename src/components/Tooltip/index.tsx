@@ -17,5 +17,5 @@ const Tooltip: React.FC<TooltipProps> = ({title, children, className}) => {
 
 }
 
-export default Tooltip;
+export default Tooltip; 
 
