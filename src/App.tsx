@@ -3,7 +3,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import GlobalStyle from './styles/global';
 
-import AuthContext from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 //AuthContext.Provider é um componente que colocamos por volta dos componentes que queremos que tenham o contexto de autenticação.
 
 // Todos os componentes dentro do contexto, terão acessos as informações do contexto, até aqueles componentes dentro dos componentes.
@@ -11,9 +11,9 @@ import AuthContext from './context/AuthContext';
 const App: React.FC = () => {
   return (
     <>
-      <AuthContext.Provider value={{name: 'Everton'}}>
+      <AuthProvider>
         <SignIn />
-      </AuthContext.Provider>
+      </AuthProvider>
       <GlobalStyle />
     </>
   )

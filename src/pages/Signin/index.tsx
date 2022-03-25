@@ -4,7 +4,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web'
 import * as Yup from 'yup';
 
-import AuthContext from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import getValidationErrors from '../../utils/getValidationErrors'
 
 import logoImg from '../../assets/logo.svg';
@@ -17,8 +17,8 @@ import { Container, Content, Background } from './styles';
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
 
-    const auth = useContext(AuthContext)
-    console.log(auth)
+    const { signIn } = useContext(AuthContext)
+
 
     const handleSubmit = useCallback(async (data: object) => {
         try {
@@ -34,6 +34,7 @@ const SignIn: React.FC = () => {
                 abortEarly: false,
             });
 
+            signIn()
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 console.log(err)
@@ -43,7 +44,9 @@ const SignIn: React.FC = () => {
                 return;
             }
         }
-    }, [])
+    }, [signIn])
+    //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
+    
 
     return (
         <Container>
