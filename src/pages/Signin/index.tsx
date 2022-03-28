@@ -4,7 +4,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web'
 import * as Yup from 'yup';
 
-import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/AuthContext";
 import getValidationErrors from '../../utils/getValidationErrors'
 
 import logoImg from '../../assets/logo.svg';
@@ -22,8 +22,9 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
 
-    const { signIn } = useContext(AuthContext)
+    const { signIn, user } = useAuth();
 
+    console.log(user)
 
     const handleSubmit = useCallback(async (data: SignInFormData) => {
         try {
@@ -51,6 +52,7 @@ const SignIn: React.FC = () => {
                 formRef.current?.setErrors(errors);
                 return;
             }
+            //disparar um toast
         }
     }, [signIn])
     //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
