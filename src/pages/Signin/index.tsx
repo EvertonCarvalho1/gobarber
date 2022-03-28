@@ -52,6 +52,7 @@ const SignIn: React.FC = () => {
                 formRef.current?.setErrors(errors);
                 return;
             }
+            //disparar um toast
         }
     }, [signIn])
     //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
