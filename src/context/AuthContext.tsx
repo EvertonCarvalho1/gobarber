@@ -12,7 +12,7 @@ interface SignInCredentials{
 }
 
 interface AuthContextData{
-    name: string;
+    user: object;
     signIn(credentials: SignInCredentials): Promise<void> //quando transformamos o metodo em async, ele retorna um Promise<void>
 };
 
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC = ({children}) => {
 
     //children => tudo que este componente receber como filho, vamos repassar depois pra algum lugar dentro do componente
     return(
-        <AuthContext.Provider value={{name: 'Everton', signIn}}>
+        <AuthContext.Provider value={{user: data.user, signIn}}>
             {/* passamos o children pra que todos os filhos do AuthProvider sejam repassados como filhos do AuthContext.Provider */}
             {children}
         </AuthContext.Provider>
