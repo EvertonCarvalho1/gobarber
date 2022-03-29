@@ -6,7 +6,7 @@ const ToastContainer: React.FC = () => {
     return(
         <Container>
 
-            <Toast>
+            <Toast type="info" hasDescription={false}>
                 <FiAlertCircle size={20}/>
                 <div>
                     <strong>Aconteceu um erro</strong>
@@ -18,7 +18,7 @@ const ToastContainer: React.FC = () => {
                 </button>
             </Toast>
 
-            <Toast type='success'>
+            <Toast type='success' hasDescription={false}>
                 <FiAlertCircle size={20}/>
                 <div>
                     <strong>Aconteceu um erro</strong>
@@ -30,7 +30,7 @@ const ToastContainer: React.FC = () => {
                 </button>
             </Toast>
 
-            <Toast type='error'>
+            <Toast type='error' hasDescription={false}>
                 <FiAlertCircle size={20}/>
                 <div>
                     <strong>Aconteceu um erro</strong>
