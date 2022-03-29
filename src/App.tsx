@@ -1,23 +1,21 @@
 import React from 'react';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import ToastContainer from './components/ToastContainer';
+import AppProvider from './hooks';
+
 import GlobalStyle from './styles/global';
 
-import { AuthProvider } from './hooks/AuthContext';
-//AuthContext.Provider é um componente que colocamos por volta dos componentes que queremos que tenham o contexto de autenticação.
+//foi criado o componente AppProvider, para englobar todos os contextos (auth e toast), assim deixando o App.tsx mais limpo
+//O AppProvider vai em volta das paginas criadas, assim provendo informações de autenticação e de toast 
 
-// Todos os componentes dentro do contexto, terão acessos as informações do contexto, até aqueles componentes dentro dos componentes.
+
 
 const App: React.FC = () => {
   return (
     <>
-      <AuthProvider>
+      <AppProvider>
         <SignIn />
-      </AuthProvider>
-
-      <ToastContainer/>
-
+      </AppProvider>
       <GlobalStyle />
     </>
   )
