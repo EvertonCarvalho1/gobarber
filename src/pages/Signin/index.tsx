@@ -25,8 +25,6 @@ const SignIn: React.FC = () => {
 
     const { signIn, user } = useAuth();
     const { addToast, removeToast } = useToast();
- 
-    console.log(user)
 
     const handleSubmit = useCallback(async (data: SignInFormData) => {
         try {
@@ -54,7 +52,12 @@ const SignIn: React.FC = () => {
                 formRef.current?.setErrors(errors);
                 return;
             }
-            addToast();
+            
+            addToast({
+                type: 'error',
+                title: 'erro na auth',
+                description: 'ocorreu um erro'
+            });
         }
     }, [signIn, addToast])
     //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
