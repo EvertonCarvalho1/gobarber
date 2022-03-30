@@ -16,7 +16,7 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
                 return (
                     <Toast
                         key={message.id}
-                        toast={message}
+                        message={message}
                     />
                 )
             })}
