@@ -54,9 +54,9 @@ const SignIn: React.FC = () => {
             }
             
             addToast({
-                type: 'error',
-                title: 'erro na auth',
-                description: 'ocorreu um erro'
+                type: 'success',
+                title: 'Deu boa',
+                description: 'ocorreu tudo nos conformes'
             });
         }
     }, [signIn, addToast])
