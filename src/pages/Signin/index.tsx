@@ -3,6 +3,7 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web'
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom'; 
 
 import { useAuth } from "../../hooks/auth";
 import { useToast } from "../../hooks/toast";
@@ -23,8 +24,8 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
 
-    const { signIn, user } = useAuth();
-    const { addToast, removeToast } = useToast();
+    const { signIn } = useAuth();
+    const { addToast } = useToast();
 
     const handleSubmit = useCallback(async (data: SignInFormData) => {
         try {
@@ -78,10 +79,10 @@ const SignIn: React.FC = () => {
                     <a href="forgot">Esqueci minha senha</a>
                 </Form>
 
-                <a href="">
+                <Link to="/signup">
                     <FiLogIn />
                     Criar conta
-                </a>
+                </Link>
 
             </Content>
             <Background />

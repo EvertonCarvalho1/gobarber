@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from "react";
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
 import {FormHandles} from '@unform/core';
 import { Form } from '@unform/web';
+import { Link } from 'react-router-dom'; 
 
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors'
@@ -76,10 +77,10 @@ const SignUp: React.FC = () => {
 
                 </Form>
 
-                <a href="">
+                <Link to="/">
                     <FiArrowLeft />
                     Voltar para logon
-                </a>
+                </Link>
 
             </Content>
         </Container>

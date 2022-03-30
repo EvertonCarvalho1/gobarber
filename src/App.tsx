@@ -1,7 +1,7 @@
 import React from 'react';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
 import AppProvider from './hooks';
+import { BrowserRouter } from 'react-router-dom';//importante para agrupar as rotas 
+import Routes from './routes';
 
 import GlobalStyle from './styles/global';
 
@@ -12,12 +12,13 @@ import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
   return (
-    <>
+    <BrowserRouter>
       <AppProvider>
-        <SignIn />
+        <Routes />
       </AppProvider>
+      
       <GlobalStyle />
-    </>
+    </BrowserRouter>
   )
 };
 
