@@ -4,7 +4,7 @@ import ToastContainer from '../components/ToastContainer';
 
 interface ToastContextData {
     addToast(message: Omit<ToastMessage, 'id'>): void; 
-    removeToast(): void;
+    removeToast(id: string): void;
 }
 
 export interface ToastMessage {
@@ -39,7 +39,9 @@ const ToastProvider: React.FC = ({children}) => {
     }, [messages]);
 
 
-    const removeToast = useCallback(() => {
+    const removeToast = useCallback((id: string) => {
+        setMessages(state => state.filter(message => message.id !== id))
+        //.filter retorna a state com filtro aplicado, retornando as mensagens em que o o id form diferente do id passado no parametro
     }, []);
 
 

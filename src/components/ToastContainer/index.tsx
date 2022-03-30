@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useCallback} from "react";
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
 
-import { ToastMessage } from '../../hooks/toast'
+import { ToastMessage, useToast } from '../../hooks/toast'
 import { Container, Toast } from "./styles";
 
 interface ToastContainerProps {
@@ -9,10 +9,14 @@ interface ToastContainerProps {
 }
 
 const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
+
+    const { removeToast } = useToast(); 
+     
     return (
         <Container>
             {messages.map(message => {
                 //sempre devemos utilizar o return no map
+                //não podemos enviar um parâmetro dentro de uma função que esta no onchange por exemplo, se não codigo executa, devemos colocar a função dentro de uma arrow function e assim passar o parametro
                 return (
                     <Toast
                         type={message.type}
@@ -25,23 +29,11 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
                             {message.description && <p>{message.description}</p>}
                         </div>
 
-                        <button type="button">
+                        <button onClick={() => removeToast(message.id)} type="button">
                             <FiXCircle size={18} />
                         </button>
                     </Toast>)
             })}
-
-            <Toast type="info" hasDescription={false}>
-                <FiAlertCircle size={20} />
-                <div>
-                    <strong>Aconteceu um erro</strong>
-                    <p>Não foi possivel fazer login</p>
-                </div>
-
-                <button type="button">
-                    <FiXCircle size={18} />
-                </button>
-            </Toast>
         </Container>
     )
 }
