@@ -3,7 +3,7 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web'
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useAuth } from "../../hooks/auth";
 import { useToast } from "../../hooks/toast";
@@ -23,6 +23,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
+    const history = useHistory();
 
     const { signIn } = useAuth();
     const { addToast } = useToast();
@@ -45,6 +46,7 @@ const SignIn: React.FC = () => {
                 email: data.email,
                 password: data.password,
             })
+            history.push('/dashboard')
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 console.log(err)
@@ -55,12 +57,12 @@ const SignIn: React.FC = () => {
             }
 
             addToast({
-                type: 'success',
-                title: 'Deu boa',
-                description: 'ocorreu tudo nos conformes'
+                type: 'error',
+                title: 'Algo deu errado',
+                description: 'Verifique e tente novamente'
             });
         }
-    }, [signIn, addToast])
+    }, [signIn, addToast, history])
     //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
 
 
