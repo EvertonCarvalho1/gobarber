@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useContext } from "react";
-import { FiLogIn, FiMail } from 'react-icons/fi';
+import React, { useCallback, useRef, useContext, useState } from "react";
+import { FiLogIn, FiMail, FiCircle } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web'
 import * as Yup from 'yup';
@@ -14,19 +14,21 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 import { Container, Content, AnimationContainer, Background } from './styles';
+import api from "../../services/apiClient";
 
 interface ForgotPasswordFormData {
     email: string;
 }
 
 const ForgotPassword: React.FC = () => {
+    const [loading, setLoading] = useState(false)
     const formRef = useRef<FormHandles>(null);
 
     const { addToast } = useToast();
 
     const handleSubmit = useCallback(async (data: ForgotPasswordFormData) => {
         try {
-
+            setLoading(true)
             formRef.current?.setErrors({});
 
             const schema = Yup.object().shape({
@@ -37,8 +39,15 @@ const ForgotPassword: React.FC = () => {
                 abortEarly: false,
             });
 
-            //recuperação de senha
-
+            await api.post('/password/forgot', {
+                email: data.email,
+            })
+            console.log(loading)
+            addToast({
+                type: 'success',
+                title: 'Email de recuperação enviado',
+                description: 'Enviamos um email para confirmar a recuperação de senha'
+            })
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 console.log(err)
@@ -53,6 +62,8 @@ const ForgotPassword: React.FC = () => {
                 title: 'Erro na recuperação de senha',
                 description: 'Ocorreu um erro ao tentar realiazar a recuperação de senha, tente novamente.'
             });
+        } finally{
+            setLoading(false)
         }
     }, [ addToast])
     //toda variavel que é de fora do useCallback, deve ser inserida no array de dependencias do mesmo.
@@ -70,7 +81,7 @@ const ForgotPassword: React.FC = () => {
 
                         <Input icon={FiMail} name='email' placeholder="E-mail" />
     
-                        <Button type="submit">Recuperar</Button>
+                        <Button loading={loading} type="submit">Recuperar</Button>
 
                     </Form>
 
