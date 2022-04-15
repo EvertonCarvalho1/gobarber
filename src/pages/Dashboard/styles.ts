@@ -150,6 +150,45 @@ export const Section = styled.div`
 `;
 
 export const Appointment = styled.div`
-    
+    display: flex;
+    align-items: center;
 
+    & + div{
+        margin-top: 16px;
+    }
+
+    span{
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            color: #999591;
+
+            svg{
+                color: #ff9000;
+                margin-right: 8px;
+            }
+        }
+
+    div{
+        background: #3e3b47;
+        display: flex;
+        align-items: center;
+        padding: 16px 24px;
+        border-radius: 10px;
+        margin-left: 24px;
+        flex: 1;
+
+        img{
+            width: 56;
+            height: 56px;
+            border-radius: 50%;
+        }
+
+        strong{
+            margin-left: 24px;
+            color: #fff;
+            font-size: 20px;
+        }
+    }
+    
 `;
