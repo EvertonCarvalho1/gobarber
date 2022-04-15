@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
                         </div>
                     </Profile>
 
-                    <button type="button" onClick={signOut}>
+                    <button type="button" onClick={signOut}> 
                         <FiPower />
                     </button>
                 </HeaderContent>
