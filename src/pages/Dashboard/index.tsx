@@ -2,9 +2,11 @@ import React from "react";
 import { useAuth } from "../../hooks/auth";
 
 import { FiClock, FiPower } from "react-icons/fi";
-import { Container, Header, HeaderContent, Profile, Content , Schedule, NextAppointment, Calendar } from "./styles";
+import { Container, Header, HeaderContent, Profile, Content , Schedule, NextAppointment, Calendar, Section, Appointment } from "./styles";
 
 import logoImage from '../../assets/logo.svg';
+import firstImage from '../../assets/enzo (2).jpg';
+import secondImage from '../../assets/john.jpg';
 
 const Dashboard: React.FC = () => {
 
@@ -50,6 +52,36 @@ const Dashboard: React.FC = () => {
                             </span>
                         </div>
                     </NextAppointment>
+                    <Section>
+                        <strong>Manhã</strong>
+                        <Appointment>
+                            <span>
+                                <FiClock/>
+                                08:00
+                            </span>
+                            <div>
+                                <img src={secondImage} alt="John Santos" />
+
+                                <strong>John Santos</strong>
+                            </div>
+                        </Appointment>
+                    </Section>
+
+                    <Section>
+                        <strong>Tarde</strong>
+
+                        <Appointment>
+                            <span>
+                                <FiClock/>
+                                08:00
+                            </span>
+                            <div>
+                                <img src={firstImage} alt="Enzo Grabriel" />
+
+                                <strong>Enzo Grabriel</strong>
+                            </div>
+                        </Appointment>
+                    </Section>
                 </Schedule>
                 <Calendar/>
             </Content>
