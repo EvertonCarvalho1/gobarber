@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../hooks/auth";
 
 import { FiClock, FiPower } from "react-icons/fi";
@@ -9,6 +9,8 @@ import firstImage from '../../assets/enzo (2).jpg';
 import secondImage from '../../assets/john.jpg';
 
 const Dashboard: React.FC = () => {
+    
+    const [selectedDate, setSelectedDate] = useState( new Date());
 
     const {signOut, user} = useAuth();
     console.log(user)
