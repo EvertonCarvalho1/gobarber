@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import DayPicker from "react-day-picker";
+import 'react-day-picker/lib/style.css';
 import { useAuth } from "../../hooks/auth";
 
 import { FiClock, FiPower } from "react-icons/fi";
-import { Container, Header, HeaderContent, Profile, Content , Schedule, NextAppointment, Calendar, Section, Appointment } from "./styles";
+import { Container, Header, HeaderContent, Profile, Content, Schedule, NextAppointment, Calendar, Section, Appointment } from "./styles";
 
 import logoImage from '../../assets/logo.svg';
 import firstImage from '../../assets/enzo (2).jpg';
 import secondImage from '../../assets/john.jpg';
 
 const Dashboard: React.FC = () => {
-    
-    const [selectedDate, setSelectedDate] = useState( new Date());
 
-    const {signOut, user} = useAuth();
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const { signOut, user } = useAuth();
     console.log(user)
 
     return (
@@ -21,14 +23,14 @@ const Dashboard: React.FC = () => {
                 <HeaderContent>
                     <img src={logoImage} alt='Gobarber' />
                     <Profile>
-                        <img src={user.avatar_url === null ? 'https://avatars.githubusercontent.com/u/82480230?v=4' : user.avatar_url} alt={user.name}/>
+                        <img src={user.avatar_url === null ? 'https://avatars.githubusercontent.com/u/82480230?v=4' : user.avatar_url} alt={user.name} />
                         <div>
                             <span>Bem vindo</span>
                             <strong>{user.name}</strong>
                         </div>
                     </Profile>
 
-                    <button type="button" onClick={signOut}> 
+                    <button type="button" onClick={signOut}>
                         <FiPower />
                     </button>
                 </HeaderContent>
@@ -49,7 +51,7 @@ const Dashboard: React.FC = () => {
 
                             <strong>Jolielton Carvalho</strong>
                             <span>
-                                <FiClock/>
+                                <FiClock />
                                 08:00
                             </span>
                         </div>
@@ -58,7 +60,7 @@ const Dashboard: React.FC = () => {
                         <strong>Manhã</strong>
                         <Appointment>
                             <span>
-                                <FiClock/>
+                                <FiClock />
                                 08:00
                             </span>
                             <div>
@@ -74,7 +76,7 @@ const Dashboard: React.FC = () => {
 
                         <Appointment>
                             <span>
-                                <FiClock/>
+                                <FiClock />
                                 08:00
                             </span>
                             <div>
@@ -85,7 +87,26 @@ const Dashboard: React.FC = () => {
                         </Appointment>
                     </Section>
                 </Schedule>
-                <Calendar/>
+                <Calendar>
+                    <DayPicker
+                        weekdaysShort={ ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
+                        fromMonth={new Date}
+                        months={[
+                            'Janeiro',
+                            'Fevereiro',
+                            'Março',
+                            'Abril',
+                            'Maio',
+                            'Junho',
+                            'Julho',
+                            'Agosto',
+                            'Setembro',
+                            'Outubro',
+                            'Novembro',
+                            'Dezembro',
+                        ]}
+                    />
+                </Calendar>
             </Content>
         </Container>
     )
