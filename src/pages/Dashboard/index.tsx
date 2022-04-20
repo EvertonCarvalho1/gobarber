@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { isToday, format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from "react-day-picker";
 import 'react-day-picker/lib/style.css';
 import { useAuth } from "../../hooks/auth";
@@ -16,12 +18,22 @@ interface MonthAvailabilityItem {
     available: boolean;
 }
 
+interface Appointment {
+    id: string;
+    date: string;
+    user: {
+        name: string;
+        avatar_url: string;
+    }
+}
+
 const Dashboard: React.FC = () => {
 
     const { signOut, user } = useAuth();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [monthAvailability, setMonthAvailability] = useState<MonthAvailabilityItem[]>([])
+    const [monthAvailability, setMonthAvailability] = useState<MonthAvailabilityItem[]>([]);
+    const [appointments, setAppointments] = useState<Appointment[]>([]);
 
     const handleMonthChange = useCallback((month: Date) => {
         setCurrentMonth(month);
@@ -44,6 +56,17 @@ const Dashboard: React.FC = () => {
 
     }, [currentMonth, user.id]);
 
+    useEffect(() => {
+        api.get('/appointments/me', {
+            params: {
+                year: selectedDate.getFullYear(),
+                month: selectedDate.getMonth() + 1,
+                day: selectedDate.getDate(),
+            }
+        }).then(response => setAppointments(response.data));
+
+    }, [selectedDate])
+
     const disabledDays = useMemo(() => {
         const dates = monthAvailability.filter(monthDay => monthDay.available === false)
         .map(monthDays => {
@@ -55,6 +78,26 @@ const Dashboard: React.FC = () => {
         return dates;
 
     }, [currentMonth, monthAvailability])
+
+    const selectedDateAsText = useMemo(() => {
+        return format(selectedDate, "'Dia' dd 'de' MMMM", {
+            locale: ptBR,
+        })
+    }, [selectedDate]);
+
+    const isTodayVerify = useMemo(() => {
+        return isToday(selectedDate)
+    }, [selectedDate]);
+
+    const selectWeekDay = useMemo(() => {
+
+        let stringWeekDay = format(selectedDate, 'cccc', { locale: ptBR, })
+
+        let firstStringWeekDayUppercase = stringWeekDay[0].toUpperCase() + stringWeekDay.slice(1); 
+      
+        return firstStringWeekDayUppercase
+
+    }, [selectedDate]);
 
     return (
         <Container>
@@ -72,19 +115,19 @@ const Dashboard: React.FC = () => {
                     <button type="button" onClick={signOut}>
                         <FiPower />
                     </button>
-                </HeaderContent>
+                </HeaderContent >
             </Header>
             <Content>
-                <Schedule>
+                <Schedule isTodayVerify={isTodayVerify}>
                     <h1>Horarios agendados</h1>
                     <p>
-                        <span>Hoje</span>
-                        <span>Dia 06</span>
-                        <span>Segunda-feira</span>
+                        <span>{isTodayVerify && 'Hoje'} </span>
+                        <span>{selectedDateAsText}</span>
+                        <span>{selectWeekDay}</span>
                     </p>
 
                     <NextAppointment>
-                        <strong>Atendimento a seguir</strong>
+                        <strong>Agendamento a seguir</strong>
                         <div>
                             <img src="https://avatars.githubusercontent.com/u/87612078?v=4" alt="Jolielton Carvalho" />
 
