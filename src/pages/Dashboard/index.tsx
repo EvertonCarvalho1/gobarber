@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { isToday, format } from 'date-fns';
+import { isToday, format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from "react-day-picker";
 import 'react-day-picker/lib/style.css';
@@ -98,6 +98,16 @@ const Dashboard: React.FC = () => {
         return firstStringWeekDayUppercase
 
     }, [selectedDate]);
+
+    const morningAppointments = useMemo(() => {
+        return appointments.filter(appointment => {
+            return parseISO(appointment.date).getHours() < 12;
+        })
+    }, [appointments]); 
+
+    const afternoonAppointments = useMemo(() => {
+        
+    }, [appointments]); 
 
     return (
         <Container>
