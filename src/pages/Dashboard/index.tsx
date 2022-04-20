@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { isToday, format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from "react-day-picker";
 import 'react-day-picker/lib/style.css';
 import { useAuth } from "../../hooks/auth";
@@ -78,7 +80,7 @@ const Dashboard: React.FC = () => {
                 <Schedule>
                     <h1>Horarios agendados</h1>
                     <p>
-                        <span>Hoje</span>
+                        <span>{isToday(selectedDate) && 'Hoje'} </span>
                         <span>Dia 06</span>
                         <span>Segunda-feira</span>
                     </p>
