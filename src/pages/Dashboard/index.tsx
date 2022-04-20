@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import DayPicker, { DayModifiers } from "react-day-picker";
 import 'react-day-picker/lib/style.css';
 import { useAuth } from "../../hooks/auth";
@@ -44,7 +44,17 @@ const Dashboard: React.FC = () => {
 
     }, [currentMonth, user.id]);
 
-    
+    const disabledDays = useMemo(() => {
+        const dates = monthAvailability.filter(monthDay => monthDay.available === false)
+        .map(monthDays => {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            return new Date(year, month, monthDays.day)
+        })
+
+        return dates;
+
+    }, [currentMonth, monthAvailability])
 
     return (
         <Container>
@@ -120,7 +130,7 @@ const Dashboard: React.FC = () => {
                     <DayPicker
                         weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
                         fromMonth={new Date}
-                        disabledDays={[{ daysOfWeek: [0, 6] }]}
+                        disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
                         modifiers={{
                             available: { daysOfWeek: [1, 2, 3, 4, 5] }
                         }}
