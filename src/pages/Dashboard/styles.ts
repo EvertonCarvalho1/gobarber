@@ -1,5 +1,9 @@
 import { shade } from 'polished';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+interface isTodayVerifyProp {
+    isTodayVerify: boolean;
+}
 
 export const Container = styled.div`
 `;
@@ -61,7 +65,7 @@ export const Content = styled.div`
     display: flex; 
 `;
 
-export const Schedule = styled.div`
+export const Schedule = styled.div<isTodayVerifyProp>`
     flex: 1;
     margin-right: 120px;
 
@@ -72,11 +76,26 @@ export const Schedule = styled.div`
     p{
         margin-top: 8px;
         color: #ff9000;
-        span + span{
-            margin-left: 8px;
-            padding-left: 8px;
-            border-left: solid 1px #ff9000;
-        }
+      
+
+        ${props => props.isTodayVerify ? css`
+            span + span{
+                margin-left: 8px;
+                padding-left: 8px;
+                border-left: solid 1px #ff9000;
+            }
+        ` 
+        : css`
+            span + span{
+                margin-right: 8px;
+                padding-right: 8px;
+                border-right: solid 1px #ff9000;
+            }
+
+            span:last-child{
+                border-right: 0;
+            }
+        `}
     }
 `;
 

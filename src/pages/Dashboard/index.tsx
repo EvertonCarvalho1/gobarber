@@ -58,6 +58,26 @@ const Dashboard: React.FC = () => {
 
     }, [currentMonth, monthAvailability])
 
+    const selectedDateAsText = useMemo(() => {
+        return format(selectedDate, "'Dia' dd 'de' MMMM", {
+            locale: ptBR,
+        })
+    }, [selectedDate]);
+
+    const isTodayVerify = useMemo(() => {
+        return isToday(selectedDate)
+    }, [selectedDate]);
+
+    const selectWeekDay = useMemo(() => {
+
+        let stringWeekDay = format(selectedDate, 'cccc', { locale: ptBR, })
+
+        let firstStringWeekDayUppercase = stringWeekDay[0].toUpperCase() + stringWeekDay.slice(1); 
+      
+        return firstStringWeekDayUppercase
+
+    }, [selectedDate])
+
     return (
         <Container>
             <Header>
@@ -74,15 +94,15 @@ const Dashboard: React.FC = () => {
                     <button type="button" onClick={signOut}>
                         <FiPower />
                     </button>
-                </HeaderContent>
+                </HeaderContent >
             </Header>
             <Content>
-                <Schedule>
+                <Schedule isTodayVerify={isTodayVerify}>
                     <h1>Horarios agendados</h1>
                     <p>
-                        <span>{isToday(selectedDate) && 'Hoje'} </span>
-                        <span>Dia 06</span>
-                        <span>Segunda-feira</span>
+                        <span>{isTodayVerify && 'Hoje'} </span>
+                        <span>{selectedDateAsText}</span>
+                        <span>{selectWeekDay}</span>
                     </p>
 
                     <NextAppointment>
