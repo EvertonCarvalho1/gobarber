@@ -163,7 +163,7 @@ const Dashboard: React.FC = () => {
                         <strong>Manhã</strong>
                         {morningAppointments.map((morningAppointment) => {
                             return (
-                                <Appointment>
+                                <Appointment key={morningAppointment.id}>
                                 <span>
                                     <FiClock />
                                     {morningAppointment.hourFormatted}
@@ -181,17 +181,21 @@ const Dashboard: React.FC = () => {
                     <Section>
                         <strong>Tarde</strong>
 
-                        <Appointment>
-                            <span>
-                                <FiClock />
-                                08:00
-                            </span>
-                            <div>
-                                <img src={firstImage} alt="Enzo Grabriel" />
-
-                                <strong>Enzo Grabriel</strong>
-                            </div>
-                        </Appointment>
+                        {afternoonAppointments.map((afternoonAppointment) => {
+                            return (
+                                <Appointment key={afternoonAppointment.id}>
+                                <span>
+                                    <FiClock />
+                                    {afternoonAppointment.hourFormatted}
+                                </span>
+                                <div>
+                                    <img src={afternoonAppointment.user.avatar_url} alt={afternoonAppointment.user.name} />
+    
+                                    <strong>{afternoonAppointment.user.name}</strong>
+                                </div>
+                            </Appointment>
+                            )
+                        })}
                     </Section>
                 </Schedule>
                 <Calendar>
