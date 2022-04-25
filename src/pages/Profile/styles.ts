@@ -1,8 +1,8 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { shade } from 'polished';
 
-import signUpBackgroundImg from '../../assets/sign-up-background.png';
+
 
 export const Container = styled.div`
     height: 100vh;
@@ -16,39 +16,17 @@ export const Content = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 700px;
-`;
+    margin: 0 auto;
 
-const appearFromRight = keyframes`
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }to{
-        opacity: 1;
-        transform: translateX(0);
-    }
-`;
-
-
-export const AnimationContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    animation: ${appearFromRight} 1s;
-     form{
+    form{
         margin: 80px 0;
         width: 340px;
         text-align: center;
 
         h1{
-        margin-bottom: 24px;
+        margin-bottom: 20px;
+        text-align: left;
         }
-
-       
-
-
 
         a{
             color: #F4EDE8;
@@ -60,33 +38,10 @@ export const AnimationContainer = styled.div`
                     color: ${shade(0.2, '#F4EDE8')};
                 }
         }
-
-    }
-
-    > a {
-        color: #f4ede8;
-        display: block;
-        text-decoration: none;
-
-        display: flex;
-        align-items: center;
-        transition: 0.2s;
-        svg{
-            margin-right: 16px;
-        }
-        &:hover{
-            color: ${shade(0.2, '#f4ede8')};
+        input[name=old_password]{
+            margin-top: 24px;
         }
     }
-
-
 `;
 
-export const Background = styled.div`
-    flex: 1;
-    background: url(${signUpBackgroundImg});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 
-`;
