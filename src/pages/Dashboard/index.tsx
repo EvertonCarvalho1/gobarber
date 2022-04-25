@@ -41,8 +41,9 @@ const Dashboard: React.FC = () => {
     }, [])
 
     const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-        if (modifiers.available) { }
-        setSelectedDate(day);
+        if (modifiers.available && !modifiers.disabled) {
+            setSelectedDate(day);
+        }
     }, []);
 
     useEffect(() => {
@@ -169,6 +170,10 @@ const Dashboard: React.FC = () => {
 
                     <Section>
                         <strong>Manhã</strong>
+                        {morningAppointments.length === 0 && (
+                            <p>Nenhum agendamento neste período</p>
+                        )}
+
                         {morningAppointments.map((morningAppointment) => {
                             return (
                                 <Appointment key={morningAppointment.id}>
@@ -188,6 +193,10 @@ const Dashboard: React.FC = () => {
 
                     <Section>
                         <strong>Tarde</strong>
+
+                        {afternoonAppointments.length === 0 && (
+                            <p>Nenhum agendamento neste período</p>
+                        )}
 
                         {afternoonAppointments.map((afternoonAppointment) => {
                             return (
