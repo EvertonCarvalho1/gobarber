@@ -10,8 +10,7 @@ import { FiClock, FiPower } from "react-icons/fi";
 import { Container, Header, HeaderContent, Profile, Content, Schedule, NextAppointment, Calendar, Section, Appointment } from "./styles";
 
 import logoImage from '../../assets/logo.svg';
-import firstImage from '../../assets/enzo (2).jpg';
-import secondImage from '../../assets/john.jpg';
+import { Link } from "react-router-dom";
 
 interface MonthAvailabilityItem {
     day: number;
@@ -133,10 +132,10 @@ const Dashboard: React.FC = () => {
                 <HeaderContent>
                     <img src={logoImage} alt='Gobarber' />
                     <Profile>
-                        <img src={user.avatar_url === null ? 'https://avatars.githubusercontent.com/u/82480230?v=4' : user.avatar_url} alt={user.name} />
+                        <img src={user.avatar_url} alt={user.name} />
                         <div>
                             <span>Bem vindo</span>
-                            <strong>{user.name}</strong>
+                            <Link to={'/profile'}><strong>{user.name}</strong></Link>
                         </div>
                     </Profile>
 
