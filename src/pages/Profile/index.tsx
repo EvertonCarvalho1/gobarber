@@ -1,19 +1,20 @@
 import React, { useCallback, useRef } from "react";
-import { FiMail, FiUser, FiLock } from 'react-icons/fi';
+import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import api from "../../services/apiClient";
 import { useToast } from "../../hooks/toast";
+import { useAuth } from "../../hooks/auth";
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import { Container, Content } from './styles';
+import { Container, Content, AvatarInput } from './styles';
 
 interface ProfileFormData {
     name: string;
@@ -26,6 +27,8 @@ const Profile: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const { addToast } = useToast();
     const history = useHistory();
+
+    const { user } = useAuth();
 
     const handleSubmit = useCallback(async (data: ProfileFormData) => {
         try {
@@ -73,10 +76,34 @@ const Profile: React.FC = () => {
     return (
         <Container>
 
+            <header>
+                <div>
+                    <Link to={'/dashboard'}>
+                        <FiArrowLeft />
+                    </Link>
+                </div>
+            </header>
+
             <Content>
 
-                <Form ref={formRef} onSubmit={handleSubmit}>
+                <Form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    initialData={{
+                        name: user.name,
+                        email: user.email
+                    }}
+                >
+
+                    <AvatarInput>
+                        <img src={user.avatar_url} alt={user.name} />
+                        <button type="button">
+                            <FiCamera />
+                        </button>
+                    </AvatarInput>
+
                     <h1>Meu perfil</h1>
+
                     <Input
                         icon={FiUser}
                         name='name'
@@ -90,7 +117,7 @@ const Profile: React.FC = () => {
                     />
 
                     <Input
-                        containerStyle={{marginTop: 24}}
+                        containerStyle={{ marginTop: 24 }}
                         icon={FiLock}
                         name='old_password'
                         type="password"
