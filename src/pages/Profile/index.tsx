@@ -1,23 +1,20 @@
 import React, { useCallback, useRef } from "react";
-import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
+import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import api from "../../services/apiClient";
-import { useAuth } from "../../hooks/auth";
 import { useToast } from "../../hooks/toast";
+import { useAuth } from "../../hooks/auth";
 
-
-import getValidationErrors from '../../utils/getValidationErrors'
-
-import logoImg from '../../assets/logo.svg';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import { Container, Content, AnimationContainer, Background } from './styles';
+import { Container, Content, AvatarInput } from './styles';
 
 interface ProfileFormData {
     name: string;
@@ -30,6 +27,8 @@ const Profile: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const { addToast } = useToast();
     const history = useHistory();
+
+    const { user } = useAuth();
 
     const handleSubmit = useCallback(async (data: ProfileFormData) => {
         try {
@@ -77,11 +76,34 @@ const Profile: React.FC = () => {
     return (
         <Container>
 
-            <Content>
-                <img src={logoImg} alt="gobarber" />
+            <header>
+                <div>
+                    <Link to={'/dashboard'}>
+                        <FiArrowLeft />
+                    </Link>
+                </div>
+            </header>
 
-                <Form ref={formRef} onSubmit={handleSubmit}>
-                    <h1>Faça seu cadastro</h1>
+            <Content>
+
+                <Form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    initialData={{
+                        name: user.name,
+                        email: user.email
+                    }}
+                >
+
+                    <AvatarInput>
+                        <img src={user.avatar_url} alt={user.name} />
+                        <button type="button">
+                            <FiCamera />
+                        </button>
+                    </AvatarInput>
+
+                    <h1>Meu perfil</h1>
+
                     <Input
                         icon={FiUser}
                         name='name'
@@ -93,21 +115,32 @@ const Profile: React.FC = () => {
                         name='email'
                         placeholder="E-mail"
                     />
+
+                    <Input
+                        containerStyle={{ marginTop: 24 }}
+                        icon={FiLock}
+                        name='old_password'
+                        type="password"
+                        placeholder="Senha atual"
+                    />
+
                     <Input
                         icon={FiLock}
                         name='password'
                         type="password"
-                        placeholder="Senha"
+                        placeholder="Nova senha"
                     />
 
-                    <Button type="submit">Cadastrar</Button>
+                    <Input
+                        icon={FiLock}
+                        name='password_confirmation'
+                        type="password"
+                        placeholder="Confirmar senha"
+                    />
+
+                    <Button type="submit">Confirmar mudanças</Button>
 
                 </Form>
-
-                <Link to="/">
-                    <FiArrowLeft />
-                    Voltar para login
-                </Link>
             </Content>
         </Container>
     )
