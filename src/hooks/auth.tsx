@@ -1,10 +1,10 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/apiClient';
 
-interface User{
+interface User {
     id: string;
     avatar_url: string;
-    name: string; 
+    name: string;
     email: string;
 }
 
@@ -22,6 +22,7 @@ interface AuthContextData {
     user: User;
     signIn(credentials: SignInCredentials): Promise<void>; //quando transformamos o metodo em async, ele retorna um Promise<void>
     signOut(): void;
+    updateUser(user: User): void;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -34,10 +35,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
         if (token && user) {
             api.defaults.headers.authorization = `Bearer ${token}`;
-            
+
             return { token, user: JSON.parse(user) }
         }
-
 
         return {} as AuthState;
     });
@@ -65,9 +65,18 @@ const AuthProvider: React.FC = ({ children }) => {
         setData({} as AuthState);
     }, [])
 
+    const updateUser = useCallback((user: User) => {
+        localStorage.setItem('@GoBarber:user', JSON.stringify(user))
+
+        setData({
+            token: data.token,
+            user: user,
+        });
+    }, [setData, data.token]);
+
     //children => tudo que este componente receber como filho, vamos repassar depois pra algum lugar dentro do componente
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+        <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser }}>
             {/* passamos o children pra que todos os filhos do AuthProvider sejam repassados como filhos do AuthContext.Provider */}
             {children}
         </AuthContext.Provider>
