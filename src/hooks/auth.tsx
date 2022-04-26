@@ -38,7 +38,6 @@ const AuthProvider: React.FC = ({ children }) => {
             return { token, user: JSON.parse(user) }
         }
 
-
         return {} as AuthState;
     });
 
@@ -63,6 +62,10 @@ const AuthProvider: React.FC = ({ children }) => {
         localStorage.removeItem('@GoBarber:user');
 
         setData({} as AuthState);
+    }, [])
+
+    const updateUser = useCallback(( ) => {
+
     }, [])
 
     //children => tudo que este componente receber como filho, vamos repassar depois pra algum lugar dentro do componente
