@@ -20,6 +20,8 @@ interface ProfileFormData {
     name: string;
     email: string;
     password: string;
+    old_password: string;
+    password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -38,14 +40,29 @@ const Profile: React.FC = () => {
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
                 email: Yup.string().required('Email obrigatório').email('Digite um email válido'),
-                password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+                old_password: Yup.string(),
+                password: Yup.string().when('old_password', {
+                    is: val => val.length,
+                    then: Yup.string().required('Campo obrigatório'),
+                    otherwise: Yup.string(),
+                }),
+                password_confirmation: Yup.string()
+                .when('old_password', {
+                    is: val => val.length,
+                    then: Yup.string().required('Campo obrigatório'),
+                    otherwise: Yup.string(),
+                })
+                .oneOf(
+                    [Yup.ref('password'),],
+                    'Confirmação incorreta',
+                )
             });
 
             await schema.validate(data, {
                 abortEarly: false,
             });
 
-            await api.post('/users', data);
+            //await api.post('/users', data);
 
             history.push('/')
 
