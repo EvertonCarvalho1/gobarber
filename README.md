@@ -38,13 +38,13 @@ Tecnologias que usei no desenvolvimento
 
 ### Requisitos
 
-**Clone the project and access the folder**
+**Clone o projeto e acesse a pasta**
 
 ```bash
 $ git clone https://github.com/EvertonCarvalho1/gobarber-web.git && cd gobarber-web
 ```
 
-**Follow the steps below**
+**Siga os passos abaixo**
 
 ```bash
 # Install the dependencies
