@@ -3,10 +3,10 @@
 </h1>
 
 <h3 align="center">
-  ReactJS Application for GoBarber project
+  Projeto GoBarber
 </h3>
 
-<p align="center">The best way to schedule your service!</p>
+<p align="center">A melhor forma de agendar o seu serviço!</p>
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/EvertonCarvalho1/gobarber-web?color=%23FF9000">
