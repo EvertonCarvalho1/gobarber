@@ -2,12 +2,6 @@
   <img alt="Logo" src="https://user-images.githubusercontent.com/82480230/181015720-d528b5c4-5e36-42f0-8ce2-5c7cda83a616.svg" width="200px">
 </h1>
 
-<h3 align="center">
-  Projeto GoBarber
-</h3>
-
-<p align="center">A melhor forma de agendar o seu serviço!</p>
-
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/EvertonCarvalho1/gobarber-web?color=%23FF9000">
 </p>
